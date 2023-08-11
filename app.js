@@ -1,4 +1,3 @@
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const puppeteer = require('puppeteer');
@@ -36,10 +35,17 @@ app.post('/search', async (req, res) => {
                 const linkElement = h3.querySelector('.toDocument.pdf');
                 const link = linkElement ? "https://www.italgiure.giustizia.it" + decodeURIComponent(linkElement.getAttribute('data-arg')) : null;
 
-                const section = h3.querySelector('.risultato[data-role="content"][data-arg="szdec"]')?.textContent;
-                const type = h3.querySelector('[data-role="content"][data-arg="tipoprov"]')?.textContent;
-                const number = h3.querySelector('.chkcontent [data-role="content"][data-arg="numcard"]')?.textContent;
-                const date = h3.querySelector('.chkcontent [data-role="content"][data-arg="datdep"]')?.textContent;
+                const sectionElement = h3.querySelector('.risultato[data-role="content"][data-arg="szdec"]');
+                const section = sectionElement ? sectionElement.textContent : null;
+
+                const typeElement = h3.querySelector('[data-role="content"][data-arg="tipoprov"]');
+                const type = typeElement ? typeElement.textContent : null;
+
+                const numberElement = h3.querySelector('.chkcontent [data-role="content"][data-arg="numcard"]');
+                const number = numberElement ? numberElement.textContent : null;
+
+                const dateElement = h3.querySelector('.chkcontent [data-role="content"][data-arg="datdep"]');
+                const date = dateElement ? dateElement.textContent : null;
 
                 return {
                     link,
